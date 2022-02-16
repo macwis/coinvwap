@@ -72,6 +72,7 @@ All were not thoroughly tested, so reach out if you run into problems.
 
 ---
 
+## Notes / Justifications
 
 ### "you may not use any external libraries"
 
