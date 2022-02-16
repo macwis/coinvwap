@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 
 
 def split_frames(recv_fn, recv_buffer=4096):

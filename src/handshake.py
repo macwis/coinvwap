@@ -1,17 +1,25 @@
 from __future__ import annotations
 
 import ipaddress
-import uuid
 import json
-from typing import Dict, Iterable, List, Mapping, MutableMapping, Tuple, Union, Iterator
+import uuid
+from typing import (Dict, Iterable, Iterator, List, Mapping, MutableMapping,
+                    Tuple, Union)
 from urllib.parse import urlsplit
+
 from subscribe import ABNF
 
 __all__ = ["Headers", "HeadersLike", "ProtocolHandler"]
 
 
 class Headers(MutableMapping[str, str]):
-    def __init__(self, *args: HeadersLike, **kwargs: str) -> None:  # pylint: disable=unused-argument
+    """
+    This class has been borrowed from websocket-client.
+    """
+
+    def __init__(
+        self, *args: HeadersLike, **kwargs: str  # pylint: disable=unused-argument
+    ) -> None:
         self._dict: Dict[str, List[str]] = {}
         self._list: List[Tuple[str, str]] = []
         self.__setitem__(key="", value="")
@@ -51,12 +59,13 @@ class Headers(MutableMapping[str, str]):
 HeadersLike = Union[Headers, Mapping[str, str], Iterable[Tuple[str, str]]]
 
 
-class ProtocolHandler:
-    def __init__(self, url: str, product_ids: List[str]) -> None:
+class ProtocolHandler:  # pylint: disable=too-many-instance-attributes
+    def __init__(self, url: str, product_ids: List[str], channel: str) -> None:
         self.url = url
         self.product_ids = product_ids
         self.sec_websocket_key = f"{uuid.uuid4()}=="
         self.switch_headers = self._get_switch_headers()
+        self.channel = channel
 
     def _get_switch_headers_parts(self):
         parsed_url = urlsplit(self.url)
@@ -103,7 +112,7 @@ class ProtocolHandler:
             "product_ids": self.product_ids,
             "channels": [
                 "heartbeat",
-                {"name": "ticker", "product_ids": self.product_ids},
+                {"name": self.channel, "product_ids": self.product_ids},
             ],
         }
         subscribe = ABNF.create_frame(json.dumps(params), 0x1, fin=1)
