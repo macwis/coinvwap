@@ -40,8 +40,12 @@ Requirements:
 
 Running:
 
+0. For quick run: `poetry run python src/main.py`
+
 1. For dependencies: `poetry install`
+
 2. For tests: `poetry run ./scripts/run_tests.sh`
+
 3. For build: `poetry build`
 
 ---
