@@ -95,12 +95,12 @@ price updates every time a match happens.
 It batches updates in case of cascading matches,
 greatly reducing bandwidth requirements."
 
-Tt seems like the same functionality as `ticker` offers with less bandwidth.
+It seems like the same functionality as `ticker` offers with less bandwidth.
 There is no `quantity`, so I used `last_size` which seemed closest.
 Anyway, I used what I used - constructor arguments below allow
 to customize the subscription.
 
-**User fields - to be verified, by the code reviewer.**
+**FIXME: User fields selected - to be verified, by the code reviewer.**
 
 ### Thread wrapping and watchdog
 
@@ -124,10 +124,10 @@ cvp.listen(report_fn=print)
 
 ### Websocket protocol
 
-My websocket client implementation is very shallow,
-the code will not handle too many variations.
+My websocket protocol client implementation is very shallow,
+the code will not handle too many variations, but it works for Coinbase case!
 
-I did what I could considering the limited time available.
+I did what I could considering the limited time available and "no external libraries" restriction.
 
 Framing protocol specs: https://datatracker.ietf.org/doc/html/rfc6455#section-5.2
 
@@ -152,9 +152,9 @@ length
 
 To avoid covering a lot of cases I focused on the type of responses from Coinbase.
 
-Noted that they all come unmasked and within a certain length limits I dropped support for this.
+Noted that they all come unmasked and within a certain length limits, so I dropped support for diverted variations and focused completely on this case.
 
-Other coinbase specific - not checking:
+Other coinbase websocket protocol specifics - not checking:
 - masking
 - sequence count indicating each sent message, there is no verification if I didn't miss any (no account has been used, so free feed is not complete anyway)
 - frame lengths above LENGTH_63
