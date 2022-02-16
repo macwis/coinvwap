@@ -15,6 +15,7 @@ __all__ = ["Headers", "HeadersLike", "ProtocolHandler"]
 class Headers(MutableMapping[str, str]):
     """
     This class has been borrowed from websocket-client.
+    It is used to get proper headers around the subscribe request.
     """
 
     def __init__(
@@ -60,6 +61,10 @@ HeadersLike = Union[Headers, Mapping[str, str], Iterable[Tuple[str, str]]]
 
 
 class ProtocolHandler:  # pylint: disable=too-many-instance-attributes
+    """
+    Used to handle handshake of the switch from HTTP(S) to websocket.py
+    It also wraps the sending of the subscription with Headers.
+    """
     def __init__(self, url: str, product_ids: List[str], channel: str) -> None:
         self.url = url
         self.product_ids = product_ids

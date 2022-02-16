@@ -2,6 +2,11 @@
 The code below has been heavily borrowed from:
 https://github.com/websocket-client/websocket-client/blob/e49e0e88a37c2ba0765eb67522f7ac809fe40709/websocket/_abnf.py#L1
 
+It is responsible for a proper forming the headers and mask
+around the subscription request.
+
+----
+
 _abnf.py
 websocket - WebSocket client library for Python
 

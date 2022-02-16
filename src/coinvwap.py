@@ -11,6 +11,10 @@ from vwap import VWAPStore
 
 
 class Coinvwap:
+    """
+    Main class handling the connection and websocket listening.
+    listen method can be used with threading.
+    """
     def __init__(  # pylint: disable=too-many-arguments
         self,
         product_ids: List[str] or None = None,

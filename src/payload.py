@@ -3,6 +3,12 @@ import logging
 
 
 def split_frames(recv_fn, recv_buffer=4096):
+    """
+    Read websocket data and parse the
+    frames into well formed JSON sentences.
+    Once the JSON is loaded it yelds the data to
+    the main CoinVWAP listen loop for further processing.
+    """
     msg = recv_fn(recv_buffer)
     carret = 0
     while carret < len(msg):
