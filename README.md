@@ -166,3 +166,14 @@ Other coinbase websocket protocol specifics - not checking:
 - masking
 - sequence count indicating each sent message, there is no verification if I didn't miss any (no account has been used, so free feed is not complete anyway)
 - frame lengths above LENGTH_63
+
+
+---
+
+## Future improvements
+
+- more docstrings and comments
+- websocket stream mocking
+- thread wrapper
+- more code coverage towards 100%
+- more unit tests
