@@ -153,3 +153,9 @@ cython_debug/
 
 # VSCode
 .vscode
+
+# Docs generated
+site/
+
+# Pylint
+.pylint_output.json

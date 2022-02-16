@@ -1,0 +1,30 @@
+site_name: CoinVWAP
+site_description: Coinbase price feed
+site_url: http://example.com
+
+theme: material
+
+repo_name: macwis/coinvwap
+repo_url: https://github.com/macwis/coinvwap
+
+nav:
+ - CoinVWAP: index.md
+ - Changelog: changelog.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - admonition
+  - codehilite
+  - extra
+  - tables
+  - smarty
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+
