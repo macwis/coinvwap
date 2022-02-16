@@ -1,5 +1,11 @@
 # coinvwap
 
+![](assets/python_3.8.svg?raw=true "pylint")
+![](assets/pylint_enabled.svg?raw=true "pylint")
+![](assets/black_enabled.svg?raw=true "black")
+![](assets/pytest_pass.svg?raw=true "pytest")
+![](assets/coverage.svg?raw=true "coverage")
+
 ## Intro
 
 Coinvwap retrieves a data feed from the coinbase websocket and subscribe to the matches channel.
