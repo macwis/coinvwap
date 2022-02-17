@@ -3,60 +3,10 @@ from __future__ import annotations
 import ipaddress
 import json
 import uuid
-from typing import Dict, Iterable, Iterator, List, Mapping, MutableMapping, Tuple, Union
+from typing import List, Dict
 from urllib.parse import urlsplit
 
 from subscribe import ABNF
-
-__all__ = ["Headers", "HeadersLike", "ProtocolHandler"]
-
-
-class Headers(MutableMapping[str, str]):
-    """
-    This class has been borrowed from websocket-client.
-    It is used to get proper headers around the subscribe request.
-    """
-
-    def __init__(
-        self, *args: HeadersLike, **kwargs: str  # pylint: disable=unused-argument
-    ) -> None:
-        self._dict: Dict[str, List[str]] = {}
-        self._list: List[Tuple[str, str]] = []
-        self.__setitem__(key="", value="")
-
-    def __iter__(self) -> Iterator[str]:
-        return iter(self._dict)
-
-    def __len__(self) -> int:
-        return len(self._dict)
-
-    # MutableMapping methods
-
-    def __getitem__(self, key: str) -> str:
-        value = self._dict[key.lower()]
-        if len(value) != 1:
-            # TODO: implement custom specific exception
-            raise Exception(f"No key for {key}!")
-        return value[0]
-
-    def __setitem__(self, key: str, value: str) -> None:
-        self._dict.setdefault(key.lower(), []).append(value)
-        self._list.append((key, value))
-
-    def __delitem__(self, key: str) -> None:
-        key_lower = key.lower()
-        self._dict.__delitem__(key_lower)
-        # This is inefficient. Fortunately deleting HTTP headers is uncommon.
-        self._list = [(k, v) for k, v in self._list if k.lower() != key_lower]
-
-    def __str__(self) -> str:
-        return "".join(f"{key}: {value}\r\n" for key, value in self._list) + "\r\n"
-
-    def serialize(self) -> bytes:
-        return str(self).encode()
-
-
-HeadersLike = Union[Headers, Mapping[str, str], Iterable[Tuple[str, str]]]
 
 
 class ProtocolHandler:  # pylint: disable=too-many-instance-attributes
@@ -82,20 +32,23 @@ class ProtocolHandler:  # pylint: disable=too-many-instance-attributes
             path += "?" + parsed_url.query
         return (host, port, is_secure)
 
-    def _get_switch_headers(self) -> Headers:
+    def _get_switch_headers(self) -> Dict:
         self.host, self.port, self.is_secure = self._get_switch_headers_parts()
 
-        headers = Headers()
-        headers["Host"] = self.build_host(self.host, self.port, self.is_secure)
-        headers["Upgrade"] = "websocket"
-        headers["Connection"] = "Upgrade"
-        headers["Sec-WebSocket-Key"] = self.sec_websocket_key
-        headers["Sec-WebSocket-Protocol"] = "chat, superchat"
-        headers["Sec-WebSocket-Version"] = "13"
-        return headers
+        self.headers = {}
+        self.headers["Host"] = self.build_host(self.host, self.port, self.is_secure)
+        self.headers["Upgrade"] = "websocket"
+        self.headers["Connection"] = "Upgrade"
+        self.headers["Sec-WebSocket-Key"] = self.sec_websocket_key
+        self.headers["Sec-WebSocket-Protocol"] = "chat, superchat"
+        self.headers["Sec-WebSocket-Version"] = "13"
+        return self.headers
 
     def get_switch_headers(self) -> bytes:
-        return self.switch_headers.serialize()
+        return str(
+            ("".join(f"{key}: {value}\r\n" for key, value in self.headers.items()))
+            + "\r\n"
+        ).encode()
 
     def get_host(self):
         return self.host
