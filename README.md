@@ -2,6 +2,7 @@
 
 ![](assets/python_3.8.svg?raw=true "pylint")
 ![](assets/pylint_enabled.svg?raw=true "pylint")
+![](assets/pylint_10_10.svg?raw=true "pylint")
 ![](assets/black_enabled.svg?raw=true "black")
 ![](assets/mkdocs_enabled.svg?raw=true "mkdocs")
 ![](assets/pytest_pass.svg?raw=true "pytest")
