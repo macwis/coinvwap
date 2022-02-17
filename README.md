@@ -31,8 +31,8 @@ points are included in the calculation.
 ## Design
 
 Coinvwap is written in pure Python without any dependencies, although
-to speed up development it contains two classes borrowed from [websocket-client library](https://github.com/websocket-client/websocket-client),
-precisely `ABNF` and `Headers` classes.
+to speed up development it contains a class borrowed from [websocket-client library](https://github.com/websocket-client/websocket-client),
+precisely `ABNF` class.
 
 During development close follow was kept with:
 
