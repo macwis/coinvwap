@@ -28,14 +28,14 @@ def test_integration():
     cvp.connect()
     listen_thread = Thread(target=cvp.listen, kwargs={"report_fn": buf.write})
     listen_thread.start()
-    time.sleep(1)
+    time.sleep(2)
     cvp.disconnect()
 
     rows = buf.readall().split("\n")
     data = [row.split("\t") for row in rows]
 
     assert len(data) > 1
-    assert data[0][0] in ["BTC-USD", "ETH-USD", "ETH-BTC"]
-    assert float(data[0][1]) > 0
-    assert data[0][2] == "points:"
-    assert int(data[0][3]) > 0
+    assert data[-2][0] in ["BTC-USD", "ETH-USD", "ETH-BTC"]
+    assert float(data[-2][1]) > 0.0
+    assert data[-2][2] == "points:"
+    assert int(data[-2][3]) > 0

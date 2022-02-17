@@ -3,8 +3,7 @@ from __future__ import annotations
 import ipaddress
 import json
 import uuid
-from typing import (Dict, Iterable, Iterator, List, Mapping, MutableMapping,
-                    Tuple, Union)
+from typing import Dict, Iterable, Iterator, List, Mapping, MutableMapping, Tuple, Union
 from urllib.parse import urlsplit
 
 from subscribe import ABNF

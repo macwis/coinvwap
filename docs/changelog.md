@@ -4,6 +4,7 @@ Changelog
 
 (unreleased)
 ------------
+- Integration test improved; [Maciej]
 - More docstrings; [Maciej]
 - README update; [Maciej]
 - README update; [Maciej]
