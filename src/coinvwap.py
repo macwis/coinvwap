@@ -15,6 +15,7 @@ class Coinvwap:
     Main class handling the connection and websocket listening.
     listen method can be used with threading.
     """
+
     def __init__(  # pylint: disable=too-many-arguments
         self,
         product_ids: List[str] or None = None,
@@ -74,7 +75,7 @@ class Coinvwap:
             raise Exception("Switching protocols failed!")
         logging.debug("-- Switched to websockets --")
 
-    def listen(self, report_fn=None):
+    def listen(self, report_fn=None, buffer=None):
         # subscribe
         logging.debug("-- Channels subscription --")
         self.sock.send(self.handler.get_subscription())
@@ -84,6 +85,8 @@ class Coinvwap:
                 self.vwap.store(payload)
                 if report_fn:
                     report_fn(self.vwap.report(point_counts=True), end="")
+                if buffer:
+                    buffer += self.vwap.report(point_counts=True)
 
     def disconnect(self):
         self.connected = False

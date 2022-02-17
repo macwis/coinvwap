@@ -6,6 +6,7 @@ class VWAPStore:
     """
     Storage for the 200 data points and computation of VWAP indicator.
     """
+
     def __init__(
         self,
         product_ids: List[str],
