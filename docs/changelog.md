@@ -5,6 +5,8 @@ Changelog
 (unreleased)
 ------------
 - Readme update. [Maciej]
+- Headers refactor. [Maciej]
+- Readme update. [Maciej]
 - Payload test. [Maciej]
 - Integration test improved; [Maciej]
 - More docstrings; [Maciej]
